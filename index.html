@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Šihta.hr</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    </head>
+    <body>
+
+        <nav>
+            <div class="nav-logo">Šihta.hr</div>
+            <div class="nav-buttons">
+                <button class="btn-konobar">Ja sam konobar</button>
+                <button class="btn-sef">Ja sam šef</button>
+            </div>
+        </nav>
+        <div id="forma-sef" style="display:none;">
+            <div class="forma-overlay">
+                    <div class="forma-card">
+                        <h2>Objavi smjenu</h2>
+                        <input type="text" id="naziv" placeholder="Ime restorana/bara">
+                        <input type="text" id="lokacija" placeholder="Adresa">
+                        <input type="text" id="vrijeme" placeholder="Radno vrijeme, Npr. 17:00 - 21:00">
+                        <input type="text" id="satnica" placeholder="Satnica, Npr. 9€/sat">
+                        <input type="text" id="placanje" placeholder="Plaćanje, Npr. Nakon smjene">
+                        <button class="btn-sef" id="btn-objavi">Objavi</button>
+                        <button class="btn-zatvori" id="btn-zatvori">Zatvori</button>
+                    </div>
+            </div>
+        </div>
+        <p id="description">Klikni. Prihvati. Zaradi.</p>
+
+        <div id="desc2-section">
+        <p id="desc2">Šihta.hr spaja ugostiteljske objekte sa iskusnim osobljem u tvojoj blizini.</p>
+        <img id="mockup" src="sihta mockup-portrait.png" alt="sihta app mockup">
+        </div>
+
+        <section class="pitch">
+            <div class="pitch-card">
+                <h2>Gužva ti je u kafiću, a konobar ti je otkazao u zadnji čas?</h2>
+                <p>Objavi smjenu za par minuta — upiši radno vrijeme, satnicu i lokaciju. Dostupni konobari u tvojoj blizini odmah vide ponudu i mogu se prijaviti. Bez agencija, bez čekanja, bez zivkanja.</p>
+                <button class="btn-sef" id="btn-sef-pitch">Objavi smjenu</button>
+            </div>
+
+            <div class="pitch-card">
+                <h2>Želiš odraditi smjenu na slobodan dan i pomoći nekome?</h2>
+                <p>Pregledaj dostupne smjene na mapi, odaberi što ti odgovara i prijavi se u sekundi. Plaćanje nakon smjene, uvjeti jasni unaprijed. Ti odlučuješ kad i gdje radiš.</p>
+                <button class="btn-konobar">Traži smjenu</button>
+            </div>
+        </section>
+
+        <p id="mapa-uputa">Klikni na ikonicu na mapi i pogledaj detalje o odabranoj smjeni.</p>
+
+        <div id="map"></div>
+
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        <script src="app.js"></script>
+    </body>
+</html>
