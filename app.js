@@ -1,7 +1,4 @@
-const SUPABASE_URL = 'https://iaojenmaykymlbkepkop.supabase.co';
-const SUPABASE_KEY = 'sb_publishable_bUVRi3Qh55MsbKMbvDwKbQ_6Sh-Nw5-';
-const { createClient } = supabase;
-const db = createClient(SUPABASE_URL, SUPABASE_KEY);
+const API_URL = 'http://localhost:3000/api';
 
 const map = L.map('map').setView([45.8150, 15.9819], 13);
 
@@ -10,16 +7,10 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 async function ucitajPonude() {
-  const { data, error } = await db
-    .from('ponude')
-    .select('*');
+  const response = await fetch(`${API_URL}/ponude`);
+  const ponude = await response.json();
 
-  if (error) {
-    console.error('Greška:', error);
-    return;
-  }
-
-  data.forEach(p => {
+  ponude.forEach(p => {
     const marker = L.marker([p.lat, p.lng]).addTo(map);
     marker.bindPopup(`
       <div class="popup">
@@ -33,8 +24,6 @@ async function ucitajPonude() {
     `);
   });
 }
-
-ucitajPonude();
 
 document.querySelector('.btn-sef').addEventListener('click', () => {
   document.getElementById('forma-sef').style.display = 'block';
@@ -70,26 +59,31 @@ document.getElementById('btn-objavi').addEventListener('click', async () => {
     return;
   }
 
-  const { error } = await db
-    .from('ponude')
-    .insert([{ 
-      naziv, 
-      lokacija, 
-      vrijeme, 
-      satnica, 
-      placanje, 
-      lat: koordinate.lat, 
-      lng: koordinate.lng 
-    }]);
+  const response = await fetch(`${API_URL}/ponude`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      ponuda: {
+        naziv,
+        lokacija,
+        vrijeme,
+        satnica,
+        placanje,
+        lat: koordinate.lat,
+        lng: koordinate.lng
+      }
+    })
+  });
 
-  if (error) {
-    console.error('Greška:', error);
-    return;
+  if (response.ok) {
+    alert('Smjena objavljena!');
+    document.getElementById('forma-sef').style.display = 'none';
+    ucitajPonude();
+  } else {
+    alert('Greška, pokušaj ponovo!');
   }
-
-  alert('Smjena objavljena!');
-  document.getElementById('forma-sef').style.display = 'none';
-  ucitajPonude();
 });
 
 map.on('click', function(e) {
@@ -104,3 +98,5 @@ document.querySelector('.btn-konobar').addEventListener('click', () => {
 document.getElementById('btn-sef-pitch').addEventListener('click', () => {
   document.getElementById('forma-sef').style.display = 'block';
 });
+
+ucitajPonude();
