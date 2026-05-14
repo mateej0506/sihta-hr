@@ -12,11 +12,38 @@
     </head>
     <body>
 
+        <!-- Login Modal -->
+        <div id="login-modal">
+            <div class="forma-overlay">
+                <div class="forma-card login-card">
+                    <div class="login-logo">Šihta.hr</div>
+                    <p class="login-subtitle">Prijavljuješ se kao...</p>
+                    <div class="uloga-izbor">
+                        <div class="uloga-card" id="uloga-radnik">
+                            <span class="uloga-icon">👷</span>
+                            <span>Radnik</span>
+                        </div>
+                        <div class="uloga-card" id="uloga-vlasnik">
+                            <span class="uloga-icon">🏪</span>
+                            <span>Vlasnik objekta</span>
+                        </div>
+                    </div>
+                    <input type="email" id="login-email" placeholder="Email">
+                    <input type="password" id="login-password" placeholder="Lozinka">
+                    <button class="btn-login-submit" id="btn-login">Prijavi se</button>
+                    <div class="login-divider"><span>ili</span></div>
+                    <button class="btn-zatvori btn-preskoci" id="btn-preskoci">
+                        Preskoči
+                    </button>
+                    <p class="login-guest-note">Neke funkcije su dostupne samo prijavljenim korisnicima.</p>
+                </div>
+            </div>
+        </div>
+
         <nav>
             <div class="nav-logo">Šihta.hr</div>
             <div class="nav-buttons">
-                <button class="btn-konobar">Ja sam konobar</button>
-                <button class="btn-sef">Ja sam šef</button>
+                <button class="btn-prijavi-se" id="btn-nav-login">Prijavi se</button>
             </div>
         </nav>
         <div id="forma-sef" style="display:none;">
@@ -57,6 +84,117 @@
         <p id="mapa-uputa">Klikni na ikonicu na mapi i pogledaj detalje o odabranoj smjeni.</p>
 
         <div id="map"></div>
+
+        <!-- Kako funkcionira -->
+        <section class="kako-funkcionira">
+            <h2 class="sekcija-naslov">Kako funkcionira?</h2>
+            <div class="kako-stupci">
+                <div class="kako-stupac">
+                    <h3 class="kako-podnaslov">👷 Za radnike</h3>
+                    <div class="kako-korak">
+                        <div class="korak-broj">1</div>
+                        <div>
+                            <strong>Registriraj se</strong>
+                            <p>Napravi profil za par minuta — ime, kontakt i iskustvo.</p>
+                        </div>
+                    </div>
+                    <div class="kako-korak">
+                        <div class="korak-broj">2</div>
+                        <div>
+                            <strong>Pregledaj ponude</strong>
+                            <p>Na mapi vidiš dostupne smjene u tvojoj blizini s jasnim uvjetima.</p>
+                        </div>
+                    </div>
+                    <div class="kako-korak">
+                        <div class="korak-broj">3</div>
+                        <div>
+                            <strong>Prijavi se i zaradi</strong>
+                            <p>Jednim klikom šalješ prijavu. Plaćanje odmah nakon smjene.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="kako-separator"></div>
+
+                <div class="kako-stupac">
+                    <h3 class="kako-podnaslov">🏪 Za vlasnike</h3>
+                    <div class="kako-korak">
+                        <div class="korak-broj">1</div>
+                        <div>
+                            <strong>Registriraj objekt</strong>
+                            <p>Upiši naziv i lokaciju svog restorana, bara ili kafića.</p>
+                        </div>
+                    </div>
+                    <div class="kako-korak">
+                        <div class="korak-broj">2</div>
+                        <div>
+                            <strong>Objavi smjenu</strong>
+                            <p>Radno vrijeme, satnica, uvjeti — objavljeno za manje od 2 minute.</p>
+                        </div>
+                    </div>
+                    <div class="kako-korak">
+                        <div class="korak-broj">3</div>
+                        <div>
+                            <strong>Prihvati radnika</strong>
+                            <p>Pregledaš prijave i potvrdiš osobu koja ti odgovara. Bez agencija.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ -->
+        <section class="faq">
+            <h2 class="sekcija-naslov">Često postavljana pitanja</h2>
+            <div class="faq-lista">
+                <div class="faq-stavka">
+                    <button class="faq-pitanje">Koliko košta korištenje Šihta.hr? <span class="faq-arrow">▼</span></button>
+                    <div class="faq-odgovor">
+                        <p>Za radnike je Šihta.hr potpuno besplatna. Vlasnici objekata plaćaju malu naknadu samo za uspješno popunjene smjene — bez pretplate, bez skrivenih troškova.</p>
+                    </div>
+                </div>
+                <div class="faq-stavka">
+                    <button class="faq-pitanje">Trebam li iskustvo kao konobar? <span class="faq-arrow">▼</span></button>
+                    <div class="faq-odgovor">
+                        <p>Ovisi o ponudi. Svaki vlasnik sam postavlja uvjete — neke smjene traže iskustvo, neke su otvorene i za početnike. Uvjeti su uvijek jasno navedeni unaprijed.</p>
+                    </div>
+                </div>
+                <div class="faq-stavka">
+                    <button class="faq-pitanje">Kako i kada se vrši isplata? <span class="faq-arrow">▼</span></button>
+                    <div class="faq-odgovor">
+                        <p>Plaćanje se dogovara direktno između radnika i vlasnika objekta. Uvjeti plaćanja (gotovina, transakcija, odmah ili sljedeći dan) vidljivi su na ponudi prije prijave.</p>
+                    </div>
+                </div>
+                <div class="faq-stavka">
+                    <button class="faq-pitanje">Što ako radnik ne dođe na smjenu? <span class="faq-arrow">▼</span></button>
+                    <div class="faq-odgovor">
+                        <p>Svaki radnik gradi svoju ocjenu na platformi. Nepouzdani radnici gube pristup novim ponudama. Preporučujemo da vlasniku odmah javiš ako ne možeš doći kako bi pronašao zamjenu.</p>
+                    </div>
+                </div>
+                <div class="faq-stavka">
+                    <button class="faq-pitanje">Na kojim lokacijama je Šihta.hr dostupna? <span class="faq-arrow">▼</span></button>
+                    <div class="faq-odgovor">
+                        <p>Trenutno smo u ranoj fazi i fokusirani na Zagreb. Uskoro planiramo proširenje na Split, Rijeku i ostale gradove. Ostani na vezi!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-sadrzaj">
+                <div class="footer-logo">Šihta.hr</div>
+                <p class="footer-tagline">Brzo. Jednostavno. Fer.</p>
+                <div class="footer-linkovi">
+                    <a href="mailto:info@sihta.hr">info@sihta.hr</a>
+                    <span>·</span>
+                    <a href="#">Uvjeti korištenja</a>
+                    <span>·</span>
+                    <a href="#">Privatnost</a>
+                </div>
+                <p class="footer-copy">© 2026 Šihta.hr — Sva prava pridržana</p>
+            </div>
+        </footer>
 
         <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
         <script src="app.js"></script>
