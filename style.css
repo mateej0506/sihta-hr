@@ -613,6 +613,28 @@ footer {
   font-size: 28px;
 }
 
+.modal-toggle-tekst {
+  font-size: 12px;
+  color: #666;
+  text-align: center;
+}
+
+.btn-toggle-modal {
+  background: none;
+  border: none;
+  color: #2ecc71;
+  cursor: pointer;
+  font-size: 12px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  padding: 0 0 0 4px;
+  text-decoration: underline;
+}
+
+.btn-toggle-modal:hover {
+  color: #27ae60;
+}
+
 .login-divider {
   display: flex;
   align-items: center;

@@ -3,6 +3,7 @@ const API_URL = 'https://sihta-api.onrender.com/api';
 // --- Login modal ---
 let jePrijavljen = false;
 let odabranaUloga = null;
+let modalMod = 'login'; // 'login' ili 'register'
 
 function zatvoriLoginModal() {
   document.getElementById('login-modal').style.display = 'none';
@@ -15,6 +16,34 @@ function prikaziPrijavljenog(user) {
   btn.style.cursor = 'default';
   btn.style.opacity = '0.8';
 }
+
+function postaviMod(mod) {
+  modalMod = mod;
+  const imePolje = document.getElementById('login-ime');
+  const submitBtn = document.getElementById('btn-login');
+  const subtitle = document.getElementById('modal-subtitle');
+  const toggleTekst = document.getElementById('toggle-tekst');
+  const toggleBtn = document.getElementById('btn-toggle-modal');
+
+  if (mod === 'register') {
+    imePolje.style.display = 'block';
+    submitBtn.textContent = 'Registriraj se';
+    subtitle.textContent = 'Registriraj se kao...';
+    toggleTekst.textContent = 'Već imaš račun?';
+    toggleBtn.textContent = 'Prijavi se';
+  } else {
+    imePolje.style.display = 'none';
+    submitBtn.textContent = 'Prijavi se';
+    subtitle.textContent = 'Prijavljuješ se kao...';
+    toggleTekst.textContent = 'Nemaš račun?';
+    toggleBtn.textContent = 'Registriraj se';
+  }
+}
+
+// Toggle login ↔ register
+document.getElementById('btn-toggle-modal').addEventListener('click', () => {
+  postaviMod(modalMod === 'login' ? 'register' : 'login');
+});
 
 // Odabir uloge
 document.getElementById('uloga-radnik').addEventListener('click', () => {
@@ -39,42 +68,78 @@ document.getElementById('btn-preskoci').addEventListener('click', () => {
   zatvoriLoginModal();
 });
 
-// Prijava
+// Prijava ili registracija
 document.getElementById('btn-login').addEventListener('click', async () => {
   const email = document.getElementById('login-email').value.trim();
   const lozinka = document.getElementById('login-password').value;
 
   if (!odabranaUloga) {
-    alert('Odaberi prijavljuješ li se kao radnik ili vlasnik objekta.');
+    alert('Odaberi prijavuješ li se kao radnik ili vlasnik objekta.');
     return;
   }
-
   if (!email || !lozinka) {
     alert('Upiši email i lozinku.');
     return;
   }
 
-  try {
-    const response = await fetch(`${API_URL}/auth/login`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password: lozinka })
-    });
-
-    if (response.ok) {
-      const data = await response.json();
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('user', JSON.stringify(data.user));
-      jePrijavljen = true;
-      prikaziPrijavljenog(data.user);
-      zatvoriLoginModal();
-    } else {
-      alert('Pogrešan email ili lozinka.');
+  if (modalMod === 'register') {
+    // --- Registracija ---
+    const ime = document.getElementById('login-ime').value.trim();
+    if (!ime) {
+      alert('Upiši ime i prezime.');
+      return;
     }
-  } catch {
-    // API nije dostupan — za demo svrhe samo zatvori modal
-    jePrijavljen = true;
-    zatvoriLoginModal();
+
+    try {
+      const response = await fetch(`${API_URL}/auth/register`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ime, email, password: lozinka, uloga: odabranaUloga })
+      });
+
+      if (response.ok) {
+        // Nakon registracije odmah se prijavi
+        const loginResponse = await fetch(`${API_URL}/auth/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password: lozinka })
+        });
+        const data = await loginResponse.json();
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('user', JSON.stringify(data.user));
+        jePrijavljen = true;
+        prikaziPrijavljenog(data.user);
+        zatvoriLoginModal();
+      } else {
+        const err = await response.json();
+        alert(err.errors ? err.errors.join('\n') : 'Greška pri registraciji.');
+      }
+    } catch {
+      alert('Server nije dostupan, pokušaj ponovo.');
+    }
+
+  } else {
+    // --- Prijava ---
+    try {
+      const response = await fetch(`${API_URL}/auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password: lozinka })
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('user', JSON.stringify(data.user));
+        jePrijavljen = true;
+        prikaziPrijavljenog(data.user);
+        zatvoriLoginModal();
+      } else {
+        alert('Pogrešan email ili lozinka.');
+      }
+    } catch {
+      alert('Server nije dostupan, pokušaj ponovo.');
+    }
   }
 });
 // --- Kraj login modala ---

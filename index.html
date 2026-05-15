@@ -17,7 +17,7 @@
             <div class="forma-overlay">
                 <div class="forma-card login-card">
                     <div class="login-logo">Šihta.hr</div>
-                    <p class="login-subtitle">Prijavljuješ se kao...</p>
+                    <p class="login-subtitle" id="modal-subtitle">Prijavljuješ se kao...</p>
                     <div class="uloga-izbor">
                         <div class="uloga-card" id="uloga-radnik">
                             <span class="uloga-icon">👷</span>
@@ -28,9 +28,14 @@
                             <span>Vlasnik objekta</span>
                         </div>
                     </div>
+                    <input type="text" id="login-ime" placeholder="Ime i prezime" style="display:none;">
                     <input type="email" id="login-email" placeholder="Email">
                     <input type="password" id="login-password" placeholder="Lozinka">
                     <button class="btn-login-submit" id="btn-login">Prijavi se</button>
+                    <p class="modal-toggle-tekst">
+                        <span id="toggle-tekst">Nemaš račun?</span>
+                        <button class="btn-toggle-modal" id="btn-toggle-modal">Registriraj se</button>
+                    </p>
                     <div class="login-divider"><span>ili</span></div>
                     <button class="btn-zatvori btn-preskoci" id="btn-preskoci">
                         Preskoči
