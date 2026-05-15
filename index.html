@@ -57,10 +57,36 @@
                         <h2>Objavi smjenu</h2>
                         <input type="text" id="naziv" placeholder="Ime restorana/bara">
                         <input type="text" id="lokacija" placeholder="Adresa">
-                        <input type="text" id="vrijeme" placeholder="Radno vrijeme, Npr. 17:00 - 21:00">
-                        <input type="text" id="satnica" placeholder="Satnica, Npr. 9€/sat">
-                        <input type="text" id="placanje" placeholder="Plaćanje, Npr. Nakon smjene">
-                        <button class="btn-sef" id="btn-objavi">Objavi</button>
+
+                        <label class="forma-label">Radno vrijeme</label>
+                        <div class="vrijeme-picker">
+                            <div class="sat-picker">
+                                <select id="sat-od-h"></select>
+                                <span class="sat-tocka">:</span>
+                                <select id="sat-od-m"></select>
+                            </div>
+                            <span class="vrijeme-separator">do</span>
+                            <div class="sat-picker">
+                                <select id="sat-do-h"></select>
+                                <span class="sat-tocka">:</span>
+                                <select id="sat-do-m"></select>
+                            </div>
+                        </div>
+
+                        <label class="forma-label">Satnica</label>
+                        <div class="satnica-wrapper">
+                            <input type="number" id="satnica" placeholder="0" min="1" max="100">
+                            <span class="satnica-valuta">€ / sat</span>
+                        </div>
+
+                        <label class="forma-label">Plaćanje</label>
+                        <select id="placanje">
+                            <option value="" disabled selected>Odaberi način plaćanja</option>
+                            <option value="Prije smjene">Prije smjene</option>
+                            <option value="Nakon smjene">Nakon smjene</option>
+                        </select>
+
+                        <button class="btn-sef" id="btn-objavi">Objavi smjenu</button>
                         <button class="btn-zatvori" id="btn-zatvori">Zatvori</button>
                     </div>
             </div>

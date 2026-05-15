@@ -1,9 +1,9 @@
 const API_URL = 'https://sihta-api.onrender.com/api';
 
-// --- Login modal ---
+//Login
 let jePrijavljen = false;
 let odabranaUloga = null;
-let modalMod = 'login'; // 'login' ili 'register'
+let modalMod = 'login'; // login ili register
 
 function zatvoriLoginModal() {
   document.getElementById('login-modal').style.display = 'none';
@@ -40,7 +40,7 @@ function postaviMod(mod) {
   }
 }
 
-// Toggle login ↔ register
+// Toggle login register
 document.getElementById('btn-toggle-modal').addEventListener('click', () => {
   postaviMod(modalMod === 'login' ? 'register' : 'login');
 });
@@ -63,7 +63,7 @@ document.getElementById('btn-nav-login').addEventListener('click', () => {
   document.getElementById('login-modal').style.display = 'block';
 });
 
-// Preskoči
+// Preskoci
 document.getElementById('btn-preskoci').addEventListener('click', () => {
   zatvoriLoginModal();
 });
@@ -119,7 +119,7 @@ document.getElementById('btn-login').addEventListener('click', async () => {
     }
 
   } else {
-    // --- Prijava ---
+    //Prijava
     try {
       const response = await fetch(`${API_URL}/auth/login`, {
         method: 'POST',
@@ -142,7 +142,7 @@ document.getElementById('btn-login').addEventListener('click', async () => {
     }
   }
 });
-// --- Kraj login modala ---
+//Kraj login modala
 
 
 const map = L.map('map').setView([45.8150, 15.9819], 13);
@@ -164,7 +164,7 @@ async function ucitajPonude() {
         <p>🕔 ${p.vrijeme}</p>
         <p>💶 ${p.satnica}</p>
         <p>💵 ${p.placanje}</p>
-        <button onclick="alert('Prijava poslana!')">Prijavi se</button>
+        <button onclick="prijaviSeNaSmjenu()">Prijavi se</button>
       </div>
     `);
   });
@@ -189,9 +189,22 @@ async function adresaUKoordinate(adresa) {
 document.getElementById('btn-objavi').addEventListener('click', async () => {
   const naziv = document.getElementById('naziv').value;
   const lokacija = document.getElementById('lokacija').value;
-  const vrijeme = document.getElementById('vrijeme').value;
-  const satnica = document.getElementById('satnica').value;
+  const vrijemeOd = `${document.getElementById('sat-od-h').value}:${document.getElementById('sat-od-m').value}`;
+  const vrijemeDo = `${document.getElementById('sat-do-h').value}:${document.getElementById('sat-do-m').value}`;
+  const vrijeme = `${vrijemeOd} - ${vrijemeDo}`;
+  const satnicaBroj = document.getElementById('satnica').value;
+  const satnica = satnicaBroj ? `${satnicaBroj}€/sat` : '';
   const placanje = document.getElementById('placanje').value;
+
+  if (!naziv || !lokacija || !satnicaBroj || !placanje) {
+    alert('Popuni sva polja!');
+    return;
+  }
+
+  if (vrijemeOd >= vrijemeDo) {
+    alert('Kraj smjene mora biti nakon početka!');
+    return;
+  }
 
   const koordinate = await adresaUKoordinate(lokacija);
 
@@ -247,9 +260,52 @@ document.querySelector('.btn-konobar').addEventListener('click', () => {
   document.getElementById('map').scrollIntoView({ behavior: 'smooth' });
 });
 
+function prijaviSeNaSmjenu() {
+  const user = JSON.parse(localStorage.getItem('user'));
+
+  if (!user) {
+    document.getElementById('login-modal').style.display = 'block';
+    return;
+  }
+
+  if (user.uloga === 'sef') {
+    alert('Samo radnici se mogu prijaviti na smjenu.');
+    return;
+  }
+
+  alert('Prijava poslana!');
+}
+
 ucitajPonude();
 
-// FAQ accordion
+//opcije za sat/minuta pickere
+function popuniSatove(selectEl, defaultVal) {
+  for (let i = 0; i < 24; i++) {
+    const opt = document.createElement('option');
+    const val = String(i).padStart(2, '0');
+    opt.value = val;
+    opt.textContent = val;
+    if (i === defaultVal) opt.selected = true;
+    selectEl.appendChild(opt);
+  }
+}
+
+function popuniMinute(selectEl, defaultVal) {
+  ['00', '15', '30', '45'].forEach(m => {
+    const opt = document.createElement('option');
+    opt.value = m;
+    opt.textContent = m;
+    if (m === defaultVal) opt.selected = true;
+    selectEl.appendChild(opt);
+  });
+}
+
+popuniSatove(document.getElementById('sat-od-h'), 8);
+popuniMinute(document.getElementById('sat-od-m'), '00');
+popuniSatove(document.getElementById('sat-do-h'), 16);
+popuniMinute(document.getElementById('sat-do-m'), '00');
+
+//FAQ
 document.querySelectorAll('.faq-pitanje').forEach(btn => {
   btn.addEventListener('click', () => {
     const stavka = btn.closest('.faq-stavka');
