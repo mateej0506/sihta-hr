@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hr">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,15 +18,9 @@
                 <div class="forma-card login-card">
                     <div class="login-logo">Šihta.hr</div>
                     <p class="login-subtitle" id="modal-subtitle">Prijavljuješ se kao...</p>
-                    <div class="uloga-izbor">
-                        <div class="uloga-card" id="uloga-radnik">
-                            <span class="uloga-icon">👷</span>
-                            <span>Radnik</span>
-                        </div>
-                        <div class="uloga-card" id="uloga-vlasnik">
-                            <span class="uloga-icon">🏪</span>
-                            <span>Vlasnik objekta</span>
-                        </div>
+                    <div class="uloga-toggle">
+                        <button class="uloga-btn" id="uloga-radnik">Radnik</button>
+                        <button class="uloga-btn" id="uloga-vlasnik">Vlasnik</button>
                     </div>
                     <input type="text" id="login-ime" placeholder="Ime i prezime" style="display:none;">
                     <input type="email" id="login-email" placeholder="Email">
@@ -49,6 +43,7 @@
             <div class="nav-logo">Šihta.hr</div>
             <div class="nav-buttons">
                 <button class="btn-prijavi-se" id="btn-nav-login">Prijavi se</button>
+                <button class="btn-odjava" id="btn-odjava" style="display:none;">Odjavi se</button>
             </div>
         </nav>
         <div id="forma-sef" style="display:none;">
@@ -102,6 +97,7 @@
                 <h2>Gužva ti je u kafiću, a konobar ti je otkazao u zadnji čas?</h2>
                 <p>Objavi smjenu za par minuta — upiši radno vrijeme, satnicu i lokaciju. Dostupni konobari u tvojoj blizini odmah vide ponudu i mogu se prijaviti. Bez agencija, bez čekanja, bez zivkanja.</p>
                 <button class="btn-sef" id="btn-sef-pitch">Objavi smjenu</button>
+                <img src="coffee.png" alt="kafić" class="pitch-foto">
             </div>
 
             <div class="pitch-card">
@@ -119,23 +115,23 @@
             <h2 class="sekcija-naslov">Kako funkcionira?</h2>
             <div class="kako-stupci">
                 <div class="kako-stupac">
-                    <h3 class="kako-podnaslov">👷 Za radnike</h3>
+                    <h3 class="kako-podnaslov">Za radnike</h3>
                     <div class="kako-korak">
-                        <div class="korak-broj">1</div>
+                        <div class="korak-broj">01</div>
                         <div>
                             <strong>Registriraj se</strong>
                             <p>Napravi profil za par minuta — ime, kontakt i iskustvo.</p>
                         </div>
                     </div>
                     <div class="kako-korak">
-                        <div class="korak-broj">2</div>
+                        <div class="korak-broj">02</div>
                         <div>
                             <strong>Pregledaj ponude</strong>
                             <p>Na mapi vidiš dostupne smjene u tvojoj blizini s jasnim uvjetima.</p>
                         </div>
                     </div>
                     <div class="kako-korak">
-                        <div class="korak-broj">3</div>
+                        <div class="korak-broj">03</div>
                         <div>
                             <strong>Prijavi se i zaradi</strong>
                             <p>Jednim klikom šalješ prijavu. Plaćanje odmah nakon smjene.</p>
@@ -146,23 +142,23 @@
                 <div class="kako-separator"></div>
 
                 <div class="kako-stupac">
-                    <h3 class="kako-podnaslov">🏪 Za vlasnike</h3>
+                    <h3 class="kako-podnaslov">Za vlasnike</h3>
                     <div class="kako-korak">
-                        <div class="korak-broj">1</div>
+                        <div class="korak-broj">01</div>
                         <div>
                             <strong>Registriraj objekt</strong>
                             <p>Upiši naziv i lokaciju svog restorana, bara ili kafića.</p>
                         </div>
                     </div>
                     <div class="kako-korak">
-                        <div class="korak-broj">2</div>
+                        <div class="korak-broj">02</div>
                         <div>
                             <strong>Objavi smjenu</strong>
                             <p>Radno vrijeme, satnica, uvjeti — objavljeno za manje od 2 minute.</p>
                         </div>
                     </div>
                     <div class="kako-korak">
-                        <div class="korak-broj">3</div>
+                        <div class="korak-broj">03</div>
                         <div>
                             <strong>Prihvati radnika</strong>
                             <p>Pregledaš prijave i potvrdiš osobu koja ti odgovara. Bez agencija.</p>
